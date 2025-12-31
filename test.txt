@@ -1,0 +1,20 @@
+DATABASE_URL=postgresql://postgres:6XATvOyLsgnGsaz4@db.bpzjabodazdoxuryjdcq.supabase.co:5432/postgres
+JWT_SECRET=743029467aad61cb03a22fc960fdedc77758c5415ecc745af13d5f5fec5d652f8493e46ab9cb47b52c63df6445a13621e6fabdd2a61d47723407c6d5c4a57069
+PORT=5000
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+  posts    Post[]
+}
+
+model Post {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
+}
